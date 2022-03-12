@@ -21,7 +21,6 @@ export default function HomePage({ setMovieInfo }) {
         },
       }
     );
-    console.log(response);
     setMovieInfo(response.data);
   }
 
