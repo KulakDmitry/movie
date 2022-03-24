@@ -13,12 +13,6 @@ function App() {
         element={<HomePage isLoading={isLoading} setIsLoading={setIsLoading} />}
       />
       <Route
-        path="/movie/:id"
-        element={
-          <MoviePage isLoading={isLoading} setIsLoading={setIsLoading} />
-        }
-      />
-      <Route
         path="/page/:page/movie/:id"
         element={
           <MoviePage isLoading={isLoading} setIsLoading={setIsLoading} />

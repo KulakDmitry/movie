@@ -10,10 +10,9 @@ export default function HomePage({ isLoading, setIsLoading }) {
   const [movies, setMovies] = useState([]);
   const [totalCountPages, setTotalCountPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const params = useParams();
-  console.log(params);
 
   useEffect(() => {
     fetchData();
@@ -64,8 +63,6 @@ export default function HomePage({ isLoading, setIsLoading }) {
   for (let page = 0; page < totalCountPages; page++) {
     pagesArray.push(page + 1);
   }
-
-  console.log(currentPage);
 
   return (
     <>
