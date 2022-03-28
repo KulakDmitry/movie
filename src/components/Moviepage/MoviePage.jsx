@@ -5,8 +5,9 @@ import Spinner from "../Spinner/Spinner";
 
 const api_key = process.env.REACT_APP_API_KEY;
 
-export default function MoviePage({ isLoading, setIsLoading }) {
+export default function MoviePage() {
   const [movieInfo, setMovieInfo] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
 
   useEffect(() => {
@@ -36,12 +37,13 @@ export default function MoviePage({ isLoading, setIsLoading }) {
       {isLoading ? (
         <Spinner />
       ) : (
-        <section>
+        <article>
           <p className="pt-10 pb-4 text-5xl text-center">{movieInfo.title}</p>
           <div className="flex p-10">
             <img
               className="rounded ml-4 w-[400px]"
               src={`http://image.tmdb.org/t/p/w400/${movieInfo.poster_path}`}
+              alt="Movie poster"
             />
             <div className="text-left px-10">
               <p className="py-2 text-lg">{movieInfo.overview}</p>
@@ -62,7 +64,7 @@ export default function MoviePage({ isLoading, setIsLoading }) {
               </div>
             </div>
           </div>
-        </section>
+        </article>
       )}
     </>
   );
