@@ -7,7 +7,6 @@ const api_key = process.env.REACT_APP_API_KEY;
 
 export default function MoviePage() {
   const [movieInfo, setMovieInfo] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
 
   useEffect(() => {
@@ -15,7 +14,6 @@ export default function MoviePage() {
   }, []);
 
   async function fetchMovieData(id) {
-    setIsLoading(true);
     try {
       const response = await axios.get(
         `https://api.themoviedb.org/3/movie/${id}`,
@@ -26,7 +24,6 @@ export default function MoviePage() {
         }
       );
       setMovieInfo(response.data);
-      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }

@@ -3,56 +3,26 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 import ReactPaginate from "react-paginate";
+import { movieDataActionTypes, reducer } from "./reducer";
 
 const api_key = process.env.REACT_APP_API_KEY;
 
-const movieDataActionTypes = {
-  SET_MOVIE_PAGE_DATA: "SET_MOVIE_PAGE_DATA",
-  SET_IS_LOADING: "SET_IS_LOADING",
-};
+const TOTAL_COUNT_PAGES = 500;
 
 export default function HomePage() {
   const [state, dispatch] = useReducer(reducer, {
     movies: [],
-    totalCountPages: 500,
     currentPage: 1,
-    isLoading: false,
   });
 
   const navigate = useNavigate();
   const params = useParams();
-
-  function reducer(state, action) {
-    switch (action.type) {
-      case movieDataActionTypes.SET_MOVIE_PAGE_DATA:
-        return {
-          ...state,
-          currentPage: action.payload.currentPage,
-          movies: action.payload.movies,
-        };
-
-      case movieDataActionTypes.SET_IS_LOADING: {
-        return {
-          ...state,
-          isLoading: action.payload.isLoading,
-        };
-      }
-      default: {
-        return state;
-      }
-    }
-  }
 
   useEffect(() => {
     fetchData(params.page);
   }, []);
 
   async function fetchData(page = 1) {
-    dispatch({
-      type: movieDataActionTypes.SET_IS_LOADING,
-      payload: { isLoading: true },
-    });
-
     try {
       const response = await axios.get(
         "https://api.themoviedb.org/3/movie/popular",
@@ -71,17 +41,13 @@ export default function HomePage() {
           currentPage: page,
         },
       });
-      dispatch({
-        type: movieDataActionTypes.SET_IS_LOADING,
-        payload: { isLoading: false },
-      });
 
       navigate(`/page/${page}`);
     } catch (error) {
       console.log(error);
     }
   }
-  const { isLoading, currentPage, totalCountPages, movies } = state;
+  const { currentPage, movies } = state;
 
   return (
     <>
@@ -118,7 +84,7 @@ export default function HomePage() {
               nextLabel="next"
               breakLabel="..."
               breakClassName="hover:bg-gray-400 rounded-md bg-gray-300 px-3 m-1"
-              pageCount={totalCountPages}
+              pageCount={TOTAL_COUNT_PAGES}
               marginPagesDisplayed={1}
               pageRangeDisplayed={5}
               onPageChange={(event) => fetchData(event.selected + 1)}
