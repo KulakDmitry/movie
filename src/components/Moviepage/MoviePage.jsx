@@ -31,7 +31,7 @@ export default function MoviePage() {
 
   return (
     <Suspense fallback={<Spinner />}>
-      <article>
+      <article data-testid="movieID">
         <p className="pt-10 pb-4 text-5xl text-center">{movieInfo.title}</p>
         <div className="flex p-10">
           <img

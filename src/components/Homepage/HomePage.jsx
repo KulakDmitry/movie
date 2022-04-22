@@ -55,8 +55,9 @@ export default function HomePage() {
       <Suspense fallback={<Spinner />}>
         <>
           <div className="mt-20 grid gap-y-10 grid-cols-5">
-            {movies.map((movie) => (
+            {movies.map((movie, index) => (
               <Link
+                data-testid={`movie-${index}`}
                 to={`movie/${movie.id}`}
                 key={movie.id}
                 className="flex items-center flex-col hover:scale-110 transition duration-300"
