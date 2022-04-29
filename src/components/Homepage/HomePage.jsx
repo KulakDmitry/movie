@@ -42,7 +42,7 @@ export default function HomePage() {
         },
       });
 
-      navigate(`/page/${page}`);
+      navigate(`/${page}`);
     } catch (error) {
       console.log(error);
     }
@@ -58,7 +58,7 @@ export default function HomePage() {
             {movies.map((movie, index) => (
               <Link
                 data-testid={`movie-${index}`}
-                to={`movie/${movie.id}`}
+                to={`/movie/${movie.id}`}
                 key={movie.id}
                 className="flex items-center flex-col hover:scale-110 transition duration-300"
               >
