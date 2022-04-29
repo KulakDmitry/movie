@@ -5,9 +5,8 @@ import MoviePage from "./components/Moviepage/MoviePage";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/page/:page/movie/:id" element={<MoviePage />} />
-      <Route path="/page/:page" element={<HomePage />}></Route>
+      <Route path="/:page" element={<HomePage />} />
+      <Route path="/movie/:id" element={<MoviePage />} />
     </Routes>
   );
 }
