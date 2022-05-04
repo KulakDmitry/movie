@@ -1,11 +1,19 @@
 import React, { Suspense, useEffect, useReducer } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 import ReactPaginate from "react-paginate";
 import { movieDataActionTypes, reducer } from "./reducer";
 
 const api_key = process.env.REACT_APP_API_KEY;
+
+const isTest = process.env.NODE_ENV === "test";
+
+export const LocationDisplay = () => {
+  const location = useLocation();
+
+  return <div data-testid="location-display">{location.pathname}</div>;
+};
 
 const TOTAL_COUNT_PAGES = 500;
 
@@ -52,6 +60,7 @@ export default function HomePage() {
   return (
     <>
       <h1 className="text-center text-4xl mt-10">Most popular movies</h1>
+      {isTest && <LocationDisplay />}
       <Suspense fallback={<Spinner />}>
         <>
           <div className="mt-20 grid gap-y-10 grid-cols-5">
