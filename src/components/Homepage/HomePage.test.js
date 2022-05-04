@@ -95,6 +95,8 @@ describe("Homepage", () => {
   });
 
   it("should render another page when click on button", async () => {
+    axios.get.mockImplementation(() => mockResults);
+
     const history = createMemoryHistory({
       initialEntries: [{ pathname: "/" }],
     });
