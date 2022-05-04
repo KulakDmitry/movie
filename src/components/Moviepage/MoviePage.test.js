@@ -30,8 +30,7 @@ describe("MoviePage", () => {
       budget: 1000,
     },
   };
-
-  it("should render moviepage when click on movie", async () => {
+  it("should render moviepage when get movie data", async () => {
     axios.get.mockImplementationOnce(() => responseMoviePage);
 
     await act(async () => render(renderMoviePage()));
