@@ -4,7 +4,6 @@ import { MemoryRouter } from "react-router-dom";
 import HomePage from "./HomePage";
 import "@testing-library/jest-dom";
 import { act } from "react-dom/test-utils";
-import MoviePage from "../Moviepage/MoviePage";
 import { createMemoryHistory } from "history";
 
 const api_key = process.env.REACT_APP_API_KEY;
@@ -17,14 +16,6 @@ const renderHomePage = () => {
   return (
     <MemoryRouter>
       <HomePage />
-    </MemoryRouter>
-  );
-};
-
-const renderMoviePage = () => {
-  return (
-    <MemoryRouter>
-      <MoviePage />
     </MemoryRouter>
   );
 };
@@ -71,19 +62,6 @@ describe("Homepage", () => {
     },
   };
 
-  const responseMoviePage = {
-    data: {
-      title: "movieName",
-      id: 1,
-      overview: "description...",
-      genres: [{ name: "detective" }, { name: "fantasy" }],
-      vote_average: "10",
-      release_date: "12.12.12",
-      runtime: "120",
-      budget: 1000,
-    },
-  };
-
   it("should render header when render homepage", () => {
     render(renderHomePage());
     expect(screen.getByText("Most popular movies")).toBeInTheDocument();
@@ -117,53 +95,50 @@ describe("Homepage", () => {
   });
 
   it("should render another page when click on button", async () => {
-    const history = createMemoryHistory();
+    const history = createMemoryHistory({
+      initialEntries: [{ pathname: "/" }],
+    });
 
     render(
-      <MemoryRouter history={history}>
+      <MemoryRouter navigator={history} location={history.location}>
         <HomePage />
       </MemoryRouter>
     );
 
-    const secondPage = await screen.findByText("2");
-    fireEvent.click(secondPage);
+    expect(screen.getByTestId("location-display")).toHaveTextContent("/");
+
+    await act(async () => {
+      const secondPageBtn = await screen.findByText("2");
+      fireEvent.click(secondPageBtn);
+    });
 
     expect(axios.get).toHaveBeenCalledWith(
       "https://api.themoviedb.org/3/movie/popular",
       { params: { api_key: api_key, page: 2 } }
     );
 
-    expect(history.location.pathname).toMatch("/2");
+    expect(screen.getByTestId("location-display")).toHaveTextContent("/2");
   });
 
   it("should redirect when click on movie", async () => {
-    const history = createMemoryHistory();
-
-    history.push = jest.fn();
+    const history = createMemoryHistory({
+      initialEntries: [{ pathname: "/" }],
+    });
 
     axios.get.mockImplementationOnce(() => mockResults);
 
     render(
-      <MemoryRouter history={history}>
+      <MemoryRouter navigator={history} location={history.location}>
         <HomePage />
       </MemoryRouter>
     );
 
+    expect(screen.getByTestId("location-display")).toHaveTextContent("/");
     const movie = await screen.findByTestId("movie-0");
     fireEvent.click(movie);
 
-    axios.get.mockImplementationOnce(() => responseMoviePage);
-
-    await act(async () => render(renderMoviePage()));
-
-    expect(history.push).toHaveBeenCalledWith(
-      `/movie/${mockResults.data.results[0].id}`
+    expect(screen.getByTestId("location-display")).toHaveTextContent(
+      "/movie/414906"
     );
-
-    expect(history.location.pathname).toMatch(
-      `/movie/${mockResults.data.results[0].id}`
-    );
-
-    expect(screen.getByTestId("movie-id")).toBeInTheDocument();
   });
 });
