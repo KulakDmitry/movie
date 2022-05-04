@@ -5,6 +5,7 @@ import MoviePage from "./components/Moviepage/MoviePage";
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<HomePage />} />
       <Route path="/:page" element={<HomePage />} />
       <Route path="/movie/:id" element={<MoviePage />} />
     </Routes>
