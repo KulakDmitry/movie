@@ -6,8 +6,12 @@ describe("home page", () => {
   });
 
   it("should open movie page when click on the movie", () => {
+    cy.intercept("GET", "https://api.themoviedb.org/3/movie/popular*", {
+      fixture: "movies",
+    });
     cy.get('[data-testid="movie-0"]').click();
-    cy.hash("pathname").should("eq", "#/movie/675353");
+
+    cy.hash("pathname").should("eq", "#/movie/414906");
   });
 
   it("should be disabled previous page button when first page is open", () => {
