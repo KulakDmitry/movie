@@ -1,0 +1,36 @@
+{
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/5P8SmMzSNYikXpxil6BYzJ16611.jpg",
+      "genre_ids": [80, 9648, 53],
+      "id": 414906,
+      "original_language": "en",
+      "original_title": "The Batman",
+      "overview": "In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler.",
+      "popularity": 20503.385,
+      "poster_path": "/74xTEgt7R36Fpooo50r9T25onhq.jpg",
+      "release_date": "2022-03-01",
+      "title": "The Batman",
+      "video": false,
+      "vote_average": 7.9,
+      "vote_count": 3703
+    },
+    {
+      "adult": false,
+      "backdrop_path": "/2n95p9isIi1LYTscTcGytlI4zYd.jpg",
+      "genre_ids": [18, 53, 80],
+      "id": 799876,
+      "original_language": "en",
+      "original_title": "The Outfit",
+      "overview": "Leonard is an English tailor who used to craft suits on London’s world-famous Savile Row. After a personal tragedy, he’s ended up in Chicago, operating a small tailor shop in a rough part of town where he makes beautiful clothes for the only people around who can afford them: a family of vicious gangsters.",
+      "popularity": 6429.525,
+      "poster_path": "/zyGDRV8eJXsaeYg11i5Y2PUSMNF.jpg",
+      "release_date": "2022-02-25",
+      "title": "The Outfit",
+      "video": false,
+      "vote_average": 7,
+      "vote_count": 112
+    }
+  ]
+}
